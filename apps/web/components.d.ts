@@ -52,6 +52,7 @@ declare module 'vue' {
     ContextMenuSubContent: typeof import('./src/components/ui/context-menu/ContextMenuSubContent.vue')['default']
     ContextMenuSubTrigger: typeof import('./src/components/ui/context-menu/ContextMenuSubTrigger.vue')['default']
     ContextMenuTrigger: typeof import('./src/components/ui/context-menu/ContextMenuTrigger.vue')['default']
+    CoverDialog: typeof import('./src/components/editor/dialogs/CoverDialog.vue')['default']
     CssEditor: typeof import('./src/components/editor/CssEditor.vue')['default']
     CustomComponentDialog: typeof import('./src/components/editor/dialogs/CustomComponentDialog.vue')['default']
     CustomComponentForm: typeof import('./src/components/editor/dialogs/CustomComponentForm.vue')['default']
