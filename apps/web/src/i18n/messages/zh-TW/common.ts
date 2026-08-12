@@ -106,6 +106,7 @@ export default {
     exportPdf: `PDF 文件`,
     exportPng: `PNG 圖片`,
     templateManage: `範本管理`,
+    coverMaker: `封面生成`,
     marketplace: `社群主題`,
     contentManage: `內容管理`,
     cloudSync: `雲端同步`,
@@ -192,14 +193,18 @@ export default {
   },
   styleOptions: {
     theme: {
-      default: { label: `經典`, desc: `` },
-      grace: { label: `優雅`, desc: `{'@'}brzhang` },
-      simple: { label: `簡潔`, desc: `{'@'}okooo5km` },
+      'default': { label: `經典`, desc: `` },
+      'grace': { label: `優雅`, desc: `{'@'}brzhang` },
+      'simple': { label: `簡潔`, desc: `{'@'}okooo5km` },
+      'autumn-warm': { label: `秋日暖光`, desc: `{'@'}yanglbme` },
+      'spring-fresh': { label: `春日清新`, desc: `{'@'}yanglbme` },
+      'ocean-calm': { label: `深海靜謐`, desc: `{'@'}yanglbme` },
     },
     fontFamily: {
       sansSerif: { label: `無襯線`, desc: `字型123Abc` },
       serif: { label: `襯線`, desc: `字型123Abc` },
       monospace: { label: `等寬`, desc: `字型123Abc` },
+      rounded: { label: `圓體`, desc: `字型123Abc` },
     },
     fontSize: {
       smaller: `更小`,

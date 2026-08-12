@@ -106,6 +106,7 @@ export default {
     exportPdf: `PDF`,
     exportPng: `PNG`,
     templateManage: `Templates`,
+    coverMaker: `Cover Maker`,
     marketplace: `Community Themes`,
     contentManage: `Content`,
     cloudSync: `Sync`,
@@ -192,14 +193,18 @@ export default {
   },
   styleOptions: {
     theme: {
-      default: { label: `Classic`, desc: `` },
-      grace: { label: `Grace`, desc: `{'@'}brzhang` },
-      simple: { label: `Simple`, desc: `{'@'}okooo5km` },
+      'default': { label: `Classic`, desc: `` },
+      'grace': { label: `Grace`, desc: `{'@'}brzhang` },
+      'simple': { label: `Simple`, desc: `{'@'}okooo5km` },
+      'autumn-warm': { label: `Autumn Warm`, desc: `{'@'}yanglbme` },
+      'spring-fresh': { label: `Spring Fresh`, desc: `{'@'}yanglbme` },
+      'ocean-calm': { label: `Ocean Calm`, desc: `{'@'}yanglbme` },
     },
     fontFamily: {
       sansSerif: { label: `Sans`, desc: `Font123Abc` },
       serif: { label: `Serif`, desc: `Font123Abc` },
       monospace: { label: `Mono`, desc: `Font123Abc` },
+      rounded: { label: `Rounded`, desc: `Font123Abc` },
     },
     fontSize: {
       smaller: `XS`,

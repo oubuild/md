@@ -106,6 +106,7 @@ export default {
     exportPdf: `PDF`,
     exportPng: `PNG`,
     templateManage: `テンプレート`,
+    coverMaker: `カバーメーカー`,
     marketplace: `コミュニティテーマ`,
     contentManage: `コンテンツ`,
     cloudSync: `同期`,
@@ -192,14 +193,18 @@ export default {
   },
   styleOptions: {
     theme: {
-      default: { label: `クラシック`, desc: `` },
-      grace: { label: `Grace`, desc: `{'@'}brzhang` },
-      simple: { label: `シンプル`, desc: `{'@'}okooo5km` },
+      'default': { label: `クラシック`, desc: `` },
+      'grace': { label: `Grace`, desc: `{'@'}brzhang` },
+      'simple': { label: `シンプル`, desc: `{'@'}okooo5km` },
+      'autumn-warm': { label: `秋の温もり`, desc: `{'@'}yanglbme` },
+      'spring-fresh': { label: `春のさわやか`, desc: `{'@'}yanglbme` },
+      'ocean-calm': { label: `海の静寂`, desc: `{'@'}yanglbme` },
     },
     fontFamily: {
       sansSerif: { label: `ゴシック`, desc: `Font123Abc` },
       serif: { label: `明朝`, desc: `Font123Abc` },
       monospace: { label: `等幅`, desc: `Font123Abc` },
+      rounded: { label: `丸ゴシック`, desc: `Font123Abc` },
     },
     fontSize: {
       smaller: `XS`,
