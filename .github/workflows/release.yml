@@ -3,7 +3,7 @@ name: Create Release
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
 
 permissions:
   contents: write
@@ -14,8 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'doocs/md'
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Extract Changelog for Tag
         id: changelog

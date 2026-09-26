@@ -1,13 +1,13 @@
 {
   "extends": "@md/config/tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
   "include": [
     "src/**/*",
+    "bench/**/*",
     "../shared/src/global.d.ts"
   ],
   "exclude": [

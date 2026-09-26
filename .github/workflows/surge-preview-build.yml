@@ -1,32 +1,37 @@
-name: Surge Preview Build
+name: Build Surge Preview
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-preview:
     runs-on: ubuntu-latest
     if: github.repository == 'doocs/md'
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout
+        uses: actions/checkout@v7
         with:
+          persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Set up node
-        uses: actions/setup-node@v7
+      - name: Set up pnpm
+        uses: pnpm/setup@v3
         with:
-          node-version: 22
+          version: 11.27.1
+          runtime: node@22
+          cache: true
+          install: false
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 11.20.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: |
-          pnpm install
-          pnpm web build:h5-netlify
+        run: pnpm web build:h5-netlify
 
       - name: Upload dist artifact
         uses: actions/upload-artifact@v7

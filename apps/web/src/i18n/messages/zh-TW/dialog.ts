@@ -103,6 +103,7 @@ export default {
     githubLogin: `GitHub 登入`,
     extensionLoginUnavailable: `當前環境不支援擴充套件內登入，請更新外掛或改用網頁版登入。`,
     loginFailed: `登入失敗，請稍後重試。`,
+    loginCancelled: `已取消登入`,
     loggingIn: `登入中…`,
     cloudSync: `雲同步`,
     sharePreview: `分享預覽`,
@@ -138,6 +139,7 @@ export default {
         { name: `刪除線`, syntax: `~~刪除線~~`, example: `刪除線` },
         { name: `高亮`, syntax: `==高亮文本==`, example: `高亮文本` },
         { name: `下劃線`, syntax: `++下劃線++`, example: `下劃線` },
+        { name: `上標`, syntax: `x^2^`, example: `x²`, tip: `緊跟在文字後面書寫，內容中不能有空格` },
         { name: `行內程式碼`, syntax: `\`程式碼\``, example: `程式碼` },
         { name: `無序列表`, syntax: `- 專案 1\n- 專案 2\n  - 巢狀專案`, tip: `使用 -、* 或 + 加空格` },
         { name: `有序列表`, syntax: `1. 專案 1\n2. 專案 2`, tip: `數字加點號` },
@@ -163,6 +165,8 @@ export default {
         { name: `資訊圖`, syntax: `\`\`\`infographic\ninfographic list-row\n...\n\`\`\``, tip: `AntV 資訊圖引擎` },
       ],
       other: [
+        { name: `Emoji`, syntax: `:rocket: :tada: :+1:`, example: `🚀 🎉 👍`, tip: `使用 GitHub 短代碼，未收錄的名稱將原樣顯示` },
+        { name: `表情貼紙`, syntax: `<Emoji id="liulei" />\n<Emoji id="liulei" width="20%" />\n<Emoji id="liulei" width="20%" align="center" />`, tip: `系統內建行內元件；align 僅在獨佔一行時生效` },
         { name: `注音標註`, syntax: `[文字]{注音}\n[文字]^(注音)`, example: `你好`, tip: `支援日語假名、拼音等` },
         { name: `幻燈片`, syntax: `<![alt](url1),![alt](url2)>`, tip: `橫屏滑動圖片，僅支援微信公眾號` },
         { name: `HTML 標籤`, syntax: `<center>居中內容</center>`, tip: `部分 HTML 標籤可用` },
@@ -240,8 +244,8 @@ export default {
       hint: `編輯區與預覽區滾動聯動`,
     },
     showAIToolbox: {
-      label: `AI 工具箱`,
-      hint: `選中文本時顯示浮動 AI 工具`,
+      label: `AI 工具列`,
+      hint: `在編輯區右側顯示 AI 助手、生圖和工具箱`,
     },
     imageReupload: {
       label: `圖片轉存`,

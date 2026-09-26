@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { DiagramDownloadOverlay } from '@/lib/preview/diagram-download'
-import { highlightPendingBlocks, hljs, hydratePendingInfographicDiagrams } from '@md/core'
 import { CONTENT_FONT_LANG } from '@/i18n/constants'
 import { setupDiagramDownloadOverlay } from '@/lib/preview/diagram-download'
+import { setupEmojiHydration } from '@/lib/preview/emoji-hydrate'
 import { useRenderStore } from '@/stores/render'
 import { useUIStore } from '@/stores/ui'
 
@@ -27,10 +27,16 @@ const effectivePreviewWidth = computed(() => {
 
 const previewRef = useTemplateRef<HTMLDivElement>(`previewRef`)
 
-function hydratePreviewDiagrams() {
+async function hydratePreviewDiagrams() {
   const outputElement = document.getElementById(`output`)
   if (!outputElement)
     return
+
+  const [{ hljs }, { highlightPendingBlocks }, { hydratePendingInfographicDiagrams }] = await Promise.all([
+    import(`@md/core/renderer`),
+    import(`@md/core/utils`),
+    import(`@md/core/extensions`),
+  ])
 
   highlightPendingBlocks(hljs, outputElement)
   hydratePendingInfographicDiagrams(outputElement, {
@@ -38,17 +44,26 @@ function hydratePreviewDiagrams() {
   })
 }
 
+function scheduleHydratePreviewDiagrams() {
+  nextTick(() => {
+    void hydratePreviewDiagrams().catch((error) => {
+      console.error(`[PreviewPanel] Failed to hydrate diagrams`, error)
+    })
+  })
+}
+
 watch(output, () => {
-  nextTick(hydratePreviewDiagrams)
+  scheduleHydratePreviewDiagrams()
 })
 
 watch(viewMode, () => {
   if (viewMode.value === `edit`)
     return
-  nextTick(hydratePreviewDiagrams)
+  scheduleHydratePreviewDiagrams()
 })
 
 let diagramOverlay: DiagramDownloadOverlay | null = null
+let emojiCleanup: (() => void) | null = null
 
 // Pause bar injection for the entire duration of isCoping so that
 // processClipboardContent mutations never re-inject bars, and resume
@@ -67,13 +82,17 @@ onMounted(() => {
     const outputEl = document.getElementById(`output`)
     if (outputEl) {
       diagramOverlay = setupDiagramDownloadOverlay(outputEl)
-      hydratePreviewDiagrams()
+      emojiCleanup = setupEmojiHydration(outputEl)
+      void hydratePreviewDiagrams().catch((error) => {
+        console.error(`[PreviewPanel] Failed to hydrate diagrams`, error)
+      })
     }
   })
 })
 
 onUnmounted(() => {
   diagramOverlay?.cleanup()
+  emojiCleanup?.()
 })
 
 defineExpose({
@@ -191,6 +210,16 @@ defineExpose({
 .mermaid-diagram,
 .plantuml-diagram {
   position: relative;
+}
+
+/*
+ * Journey (and other useMaxWidth diagrams) emit width="100%" plus a fixed
+ * pixel height. With preserveAspectRatio=xMinYMin meet, leftover height
+ * becomes a blank band under the chart. Let height follow the viewBox.
+ */
+.mermaid-diagram > svg {
+  max-width: 100%;
+  height: auto;
 }
 
 .diagram-download-bar {

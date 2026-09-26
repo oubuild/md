@@ -103,6 +103,7 @@ export default {
     githubLogin: `GitHub でログイン`,
     extensionLoginUnavailable: `拡張機能内でのログインは利用できません。拡張機能を更新するか、Web アプリをご利用ください。`,
     loginFailed: `ログインに失敗しました。しばらくしてから再試行してください。`,
+    loginCancelled: `ログインをキャンセルしました`,
     loggingIn: `ログイン中…`,
     cloudSync: `クラウド同期`,
     sharePreview: `共有プレビュー`,
@@ -138,6 +139,7 @@ export default {
         { name: `取り消し線`, syntax: `~~取り消し線~~`, example: `取り消し線` },
         { name: `ハイライト`, syntax: `==ハイライトテキスト==`, example: `ハイライトテキスト` },
         { name: `下線`, syntax: `++下線++`, example: `下線` },
+        { name: `上付き文字`, syntax: `x^2^`, example: `x²`, tip: `文字の直後に書きます。内容に空白は使えません` },
         { name: `インラインコード`, syntax: `\`コード\``, example: `コード` },
         { name: `箇条書き`, syntax: `- 項目 1\n- 項目 2\n  - ネスト項目`, tip: `-、*、または + の後にスペース` },
         { name: `番号付きリスト`, syntax: `1. 項目 1\n2. 項目 2`, tip: `数字の後にピリオド` },
@@ -163,6 +165,8 @@ export default {
         { name: `インフォグラフィック`, syntax: `\`\`\`infographic\ninfographic list-row\n...\n\`\`\``, tip: `AntV インフォグラフィックエンジン` },
       ],
       other: [
+        { name: `Emoji`, syntax: `:rocket: :tada: :+1:`, example: `🚀 🎉 👍`, tip: `GitHub のショートコード。未収録の名前はそのまま表示されます` },
+        { name: `スタンプ`, syntax: `<Emoji id="liulei" />\n<Emoji id="liulei" width="20%" />\n<Emoji id="liulei" width="20%" align="center" />`, tip: `システム内蔵のインラインコンポーネント。align は単独行のときだけ有効` },
         { name: `ルビ注釈`, syntax: `[テキスト]{ルビ}\n[テキスト]^(ルビ)`, example: `こんにちは`, tip: `かな、拼音などに対応` },
         { name: `スライドショー`, syntax: `<![alt](url1),![alt](url2)>`, tip: `横スワイプ画像、微信公式アカウントのみ` },
         { name: `HTML タグ`, syntax: `<center>中央揃えコンテンツ</center>`, tip: `一部の HTML タグに対応` },
@@ -240,8 +244,8 @@ export default {
       hint: `エディターとプレビューのスクロールを同期`,
     },
     showAIToolbox: {
-      label: `AI ツールボックス`,
-      hint: `テキスト選択時にフローティング AI ツールを表示`,
+      label: `AI ツールバー`,
+      hint: `エディター右側に AI アシスタント、画像生成、ツールボックスを表示`,
     },
     imageReupload: {
       label: `画像の再アップロード`,

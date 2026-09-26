@@ -4,13 +4,13 @@ import type { ReadTimeResults } from '@md/shared/utils/readingTime'
 import type { RendererObject, Tokens } from 'marked'
 import readingTime from '@md/shared/utils/readingTime'
 import { decodeHTML } from 'entities'
-import frontMatter from 'front-matter'
 import hljs from 'highlight.js/lib/core'
 import { Marked } from 'marked'
 import {
   getBuiltInRegistry,
   markedAlert,
   markedComponent,
+  markedEmoji,
   markedFootnotes,
   markedInfographic,
   markedMarkup,
@@ -22,6 +22,7 @@ import {
   MDKatex,
 } from '../extensions'
 import { escapeHtml } from '../utils/basicHelpers'
+import { parseFrontMatter } from '../utils/front-matter'
 import { COMMON_LANGUAGES, highlightAndFormatCode } from '../utils/languages'
 
 Object.entries(COMMON_LANGUAGES).forEach(([name, lang]) => {
@@ -168,8 +169,8 @@ interface ParseResult {
 
 function parseFrontMatterAndContent(markdownText: string): ParseResult {
   try {
-    const parsed = frontMatter(markdownText)
-    const yamlData = parsed.attributes as FrontMatterData
+    const parsed = parseFrontMatter(markdownText)
+    const yamlData = parsed.attributes
     const markdownContent = parsed.body
 
     const readingTimeResult = readingTime(markdownContent)
@@ -415,6 +416,10 @@ export function initRenderer(opts: IOpts = {}): RendererAPI {
       return styledContent(`em`, this.parser.parseInline(tokens))
     },
 
+    del({ tokens }: Tokens.Del): string {
+      return styledContent(`del`, this.parser.parseInline(tokens))
+    },
+
     table({ header, rows }: Tokens.Table): string {
       const headerRow = header
         .map((cell) => {
@@ -465,6 +470,9 @@ export function initRenderer(opts: IOpts = {}): RendererAPI {
     () => opts.renderMessages,
   ))
   markdownParser.use(markedMarkup())
+  markdownParser.use(markedEmoji({
+    resolveUrl: id => opts.assetResolver?.(id) ?? `about:blank`,
+  }))
   markdownParser.use(markedToc())
   markdownParser.use(markedSlider())
   markdownParser.use(markedAlert({}))
