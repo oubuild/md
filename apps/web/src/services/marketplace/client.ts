@@ -13,8 +13,9 @@ import { ApiError, MdApiClient } from '@/services/account/client'
 import { isAccountConfigured } from '@/services/account/config'
 import { getMockThemeById, getMockThemes } from './mock-themes'
 
+/** Local fork: mock themes ship in-repo, so the marketplace UI stays available without a backend. */
 export function isMarketplaceConfigured(): boolean {
-  return isAccountConfigured()
+  return isAccountConfigured() || getMockThemes().items.length > 0
 }
 
 export function isMarketplaceUiEnabled(): boolean {
